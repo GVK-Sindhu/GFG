@@ -2,22 +2,21 @@ class Solution {
   public:
     bool isBalanced(string& s) {
         // code here
-        stack<char>st;
-        unordered_map<char,char>maps{{')','('},{'}','{'},{']','['}};
+        stack<int>st;
         for(char c:s){
-            if(c=='(' || c=='{' || c=='['){
+            if(c=='[' || c=='{' || c=='('){
                 st.push(c);
             }
-            else{
+            else{ 
                 if(st.empty()){
                     return false;
                 }
-                    if(st.top()!=maps[c]){
-                        return false;
-                    }
-                
+               if(!st.empty() && (c==']' && st.top()=='[') || (c=='}' && st.top()=='{')||
+                (c==')'&& st.top()=='(')){
+                        st.pop();
+                }
                 else{
-                    st.pop();
+                    return false;
                 }
             }
         }
