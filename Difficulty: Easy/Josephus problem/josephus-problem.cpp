@@ -1,25 +1,26 @@
 class Solution {
   public:
-    int fun(int idx,int k ,vector<int>&arr){
-        if(arr.size()==1){
-            return arr[0];
-        }
-        idx=((idx+k-1)%arr.size());
-        // cout<<arr[idx]<<" ";
-        arr.erase(arr.begin()+idx);
-        return fun(idx,k,arr);
-    }
+   
     int josephus(int n, int k) {
         // code here
-        vector<int>arr;
-        for(int i=0;i<n;i++){
-            arr.push_back(i+1);
-            // cout<<arr[i]<<" ";
+        queue<int>q;
+        for(int i=1;i<=n;i++){
+            q.push(i);
         }
-            
-        int idx=0;
-        int res=fun(idx,k,arr);
-    
+        while(q.size()>1){
+            int c=0;
+            while(c!=k-1){
+                int tmp=q.front();
+                q.pop();
+                q.push(tmp);
+                c++;
+            }
+            q.pop();
+        }
+        int res=0;
+        if(q.size()==1){
+            res=q.front();
+        }
         return res;
     }
 };
