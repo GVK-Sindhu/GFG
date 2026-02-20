@@ -1,23 +1,18 @@
 class Solution {
   public:
-    static bool cmp(string &a,string &b){
-        return a+b>b+a;
+    static bool cmp( a,int b){
+        string astr=to_string(a);
+        string bstr=to_string(b);
+        return astr+bstr>bstr+astr;
     }
-    
     string findLargest(vector<int> &arr) {
         // code here
-        vector<string>nums;
-        string res;
+        sort(arr.begin(),arr.end(),cmp);
+        if(arr[0]==0) return "0";
+        string res="";
         for(int it:arr){
-            nums.push_back(to_string(it));
+            res+=to_string(it);
         }
-        sort(nums.begin(),nums.end(),cmp);
-        if(nums[0]=="0"){
-            return "0";
-        }
-       for(string it:nums){
-           res+=it;
-       }
-       return res;
+        return res;
     }
 };
