@@ -1,26 +1,30 @@
 class Solution {
   public:
+    bool solve(int mid,vector<int>& citations){
+        int c=0;
+        for(int it:citations){
+            if(it>=mid){
+                c++;
+            }
+        }
+        return c>=mid;
+    }
     int hIndex(vector<int>& citations) {
         // code here
         int n=citations.size();
-        vector<int>freq(n+1,0);
-        for(int it:citations){
-            if(it>n){
-                freq[n]++;
+        sort(citations.begin(),citations.end());
+        int l=0,h=n;
+        int res=0;
+        while(l<=h){
+            int mid=l+(h-l)/2;
+            if(solve(mid,citations)){
+                res=mid;
+                l=mid+1;
             }
             else{
-                freq[it]++;
+                h=mid-1;
             }
         }
-        int count=0;
-        for(int i=n;i>=0;i--){
-            count+=freq[i];
-            if(count>=i){
-                return i;
-            }
-        }
-        return 0;
+        return res;
     }
 };
-
-
