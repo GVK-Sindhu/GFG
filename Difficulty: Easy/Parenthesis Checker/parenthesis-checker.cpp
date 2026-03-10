@@ -2,24 +2,25 @@ class Solution {
   public:
     bool isBalanced(string& s) {
         // code here
-        stack<int>st;
-        for(char c:s){
-            if(c=='[' || c=='{' || c=='('){
-                st.push(c);
+        stack<char>st;
+        for(int i=0;i<s.size();i++){
+            if(s[i]=='(' || s[i]=='{' || s[i]=='['){
+                st.push(s[i]);
             }
-            else{ 
+            else if(s[i]==')' || s[i]=='}' || s[i]==']'){
                 if(st.empty()){
                     return false;
                 }
-               if(!st.empty() && (c==']' && st.top()=='[') || (c=='}' && st.top()=='{')||
-                (c==')'&& st.top()=='(')){
-                        st.pop();
+                if((s[i]==')' && st.top()=='(') || (s[i]==']' && st.top()=='[') ||
+                (s[i]=='}' && st.top()=='{')){
+                    st.pop();
                 }
                 else{
                     return false;
                 }
             }
         }
-        return st.empty();
+        if(st.empty()) return true;
+        return false;
     }
 };
