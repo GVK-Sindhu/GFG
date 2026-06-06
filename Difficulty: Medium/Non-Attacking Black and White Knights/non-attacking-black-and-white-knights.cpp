@@ -5,21 +5,39 @@ class Solution {
         int attack=0;
         int total=n*m;
         total=total*(total-1);
-        int x[]={-2,-1,1,2};
-        int y[]={1,2,2,1};
+        // int x[]={-2,-1,1,2};
+        // int y[]={1,2,2,1};
         
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-               for(int k=0;k<4;k++){
-                   int xpos=i+x[k];
-                   int ypos=j+y[k];
-                   if(xpos>=0 && xpos<n && ypos>=0 && ypos<m){
-                       attack+=2;
-                   }
-               }
+        // for(int i=0;i<n;i++){
+        //     for(int j=0;j<m;j++){
+        //       for(int k=0;k<4;k++){
+        //           int xpos=i+x[k];
+        //           int ypos=j+y[k];
+        //           if(xpos>=0 && xpos<n && ypos>=0 && ypos<m){
+        //               attack+=2;
+        //           }
+        //       }
+        //     }
+        // }
+        // return total-attack;
+        
+        int dx[] = {-2,-2,-1,-1,1,1,2,2};
+        int dy[] = {-1, 1,-2, 2,-2,2,-1,1};
+
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < m; j++) {
+                for(int k = 0; k < 8; k++) {
+                    int ni = i + dx[k];
+                    int nj = j + dy[k];
+
+                    if(ni >= 0 && ni < n && nj >= 0 && nj < m) {
+                        attack++;
+                    }
+                }
             }
         }
-        return total-attack;
+
+        return total - attack;
         
     }
 };
