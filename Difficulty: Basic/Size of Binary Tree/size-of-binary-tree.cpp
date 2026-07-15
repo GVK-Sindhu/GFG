@@ -1,32 +1,22 @@
-/*
-Definition for Node
-struct Node {
+/* Node Structure
+class Node {
+public:
     int data;
     struct Node* left;
     struct Node* right;
-
     Node(int val) {
         data = val;
-        left = right = NULL;
+        left = right = nullptr;
     }
-};
-*/
+}; */
+
 class Solution {
   public:
-    int size=0;
     int getSize(Node* root) {
         // code here
-        if(!root){
+        if(root==nullptr){
             return 0;
         }
-        size++;
-        if(root->left){
-            getSize(root->left);
-        }
-        if(root->right){
-            getSize(root->right);
-        }
-        return size;
-        
+        return 1+getSize(root->left)+getSize(root->right);
     }
 };
