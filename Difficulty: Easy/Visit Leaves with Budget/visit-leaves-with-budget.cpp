@@ -15,33 +15,42 @@ class Node {
 
 class Solution {
   public:
-    void solve(Node* root,vector<int>&dist,int c){
-        if(root->left==nullptr && root->right==nullptr){
-            dist.push_back(c);
-            return ;
-        }
-        if(root->left){
-            solve(root->left,dist,c+1);
-        }
-        if(root->right){
-            solve(root->right,dist,c+1);
-        }
-    }
     int getCount(Node *root, int k) {
-        // code here
+        int l=1;
+        queue<Node*>q;
+        q.push(root);
         vector<int>dist;
-        int c=0;
-        c++;
-        solve(root,dist,c);
-        sort(dist.begin(),dist.end());
-        int s=0,res=0;
-        for(auto it:dist){
-            if(s+it>k){
-                break;
+        while(!q.empty()){
+            int sz=q.size();
+            for(int i=0;i<sz;i++){
+                Node*tmp=q.front();
+                q.pop();
+                if(tmp->left==nullptr && tmp->right==nullptr){
+                    dist.push_back(l);
+                }
+                if(tmp->left){
+                    q.push(tmp->left);
+                }
+                if(tmp->right){
+                    q.push(tmp->right);
+                }
             }
-            s+=it;
-            res++;
+            l++;
         }
-        return res;
+        sort(dist.begin(), dist.end());
+
+               int sum = 0;
+               int ans = 0;
+
+               for(int cost : dist) {
+
+                   if(sum + cost > k)
+                       break;
+
+                   sum += cost;
+                   ans++;
+               }
+
+               return ans;
     }
 };
