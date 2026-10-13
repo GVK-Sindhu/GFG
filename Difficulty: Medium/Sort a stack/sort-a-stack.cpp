@@ -1,15 +1,21 @@
 class Solution {
   public:
+    
     void sortStack(stack<int> &st) {
         // code here
-        vector<int>res;
-        while(!st.empty()){
-            res.push_back(st.top());
-            st.pop();
-        }
-        sort(res.begin(),res.end(),greater<int>());
-        for(int i=res.size()-1;i>=0;i--){
-            st.push(res[i]);
-        }
+       stack<int>tmp;
+       while(!st.empty()){
+           int ele=st.top();
+           st.pop();
+           while(!tmp.empty() && tmp.top()<ele){
+                st.push(tmp.top());
+                tmp.pop();
+            }
+            tmp.push(ele);
+       }
+       while(!tmp.empty()){
+           st.push(tmp.top());
+           tmp.pop();
+       }
     }
 };
